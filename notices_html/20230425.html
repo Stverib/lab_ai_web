@@ -137,11 +137,11 @@
                     <div class="notice-download">
                         <p class="file-note">点击下方按钮下载完整通知文件：</p>
                         <div class="download-options">
-                            <a href="../files/全国旅游标准化技术委员会关于征集2023年旅游业国家标准行业标准制修订计划项目的公告.pdf" class="download-btn" target="_blank">
+                            <!-- <a href="../files/全国旅游标准化技术委员会关于征集2023年旅游业国家标准行业标准制修订计划项目的公告.pdf" class="download-btn" target="_blank">
                                 <i class="fas fa-file-pdf"></i> 在浏览器中查看PDF
-                            </a>
-                            <a href="../files/全国旅游标准化技术委员会关于征集2023年旅游业国家标准行业标准制修订计划项目的公告.pdf" class="download-btn" download>
-                                <i class="fas fa-download"></i> 下载PDF文件
+                            </a> -->
+                            <a href="#" class="download-btn" id="download-both-files">
+                                <i class="fas fa-download"></i> 下载文件
                             </a>
                         </div>
                     </div>
@@ -235,6 +235,181 @@
             font-size: 1.2rem;
         }
     </style>
+
+    <!-- 批量下载脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.getElementById('download-both-files');
+            
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 定义要下载的文件列表
+                    const files = [
+                        {
+                            url: '../files/3.全国旅游标准化技术委员会关于征集2023年旅游业国家标准、行业标准制修订计划项目的公告（1）.png',
+                            filename: '3.全国旅游标准化技术委员会关于征集2023年旅游业国家标准、行业标准制修订计划项目的公告（1）.png'
+                        },
+                        {
+                            url: '../files/3.全国旅游标准化技术委员会关于征集2023年旅游业国家标准、行业标准制修订计划项目的公告（2）.png',
+                            filename: '3.全国旅游标准化技术委员会关于征集2023年旅游业国家标准、行业标准制修订计划项目的公告（2）.png'
+                        }
+                    ];
+                    
+                    // 显示下载状态
+                    showDownloadStatus('正在准备下载文件...', 'info');
+                    
+                    // 批量下载文件
+                    downloadMultipleFiles(files);
+                });
+            }
+            
+            /**
+             * 批量下载多个文件
+             * @param {Array} files - 文件数组，每个文件包含url和filename
+             */
+            function downloadMultipleFiles(files) {
+                let completedCount = 0;
+                const totalFiles = files.length;
+                
+                files.forEach((file, index) => {
+                    // 延迟下载，避免浏览器阻止多个同时下载
+                    setTimeout(() => {
+                        downloadSingleFile(file, () => {
+                            completedCount++;
+                            
+                            if (completedCount === totalFiles) {
+                                showDownloadStatus(`所有文件下载完成！共下载 ${totalFiles} 个文件`, 'success');
+                                // 3秒后清除状态
+                                setTimeout(() => clearDownloadStatus(), 3000);
+                            } else {
+                                showDownloadStatus(`已下载 ${completedCount}/${totalFiles} 个文件...`, 'info');
+                            }
+                        });
+                    }, index * 500); // 每个文件间隔500ms下载
+                });
+            }
+            
+            /**
+             * 下载单个文件
+             * @param {Object} file - 文件对象
+             * @param {Function} callback - 下载完成回调
+             */
+            function downloadSingleFile(file, callback) {
+                try {
+                    // 创建隐藏的下载链接
+                    const link = document.createElement('a');
+                    link.href = file.url;
+                    link.download = file.filename;
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    
+                    // 触发下载
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // 调用回调
+                    if (callback) callback();
+                    
+                } catch (error) {
+                    console.error('下载文件失败:', file.filename, error);
+                    showDownloadStatus(`下载文件 ${file.filename} 失败`, 'error');
+                }
+            }
+            
+            /**
+             * 显示下载状态
+             * @param {string} message - 状态消息
+             * @param {string} type - 状态类型 (info, success, error)
+             */
+            function showDownloadStatus(message, type) {
+                // 移除已存在的状态提示
+                clearDownloadStatus();
+                
+                // 创建状态提示元素
+                const statusDiv = document.createElement('div');
+                statusDiv.id = 'download-status';
+                statusDiv.className = `download-status download-status-${type}`;
+                statusDiv.innerHTML = `
+                    <div class="status-content">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                // 插入到下载按钮下方
+                const downloadOptions = document.querySelector('.download-options');
+                downloadOptions.appendChild(statusDiv);
+                
+                // 添加样式
+                if (!document.getElementById('download-status-styles')) {
+                    const style = document.createElement('style');
+                    style.id = 'download-status-styles';
+                    style.textContent = `
+                        .download-status {
+                            margin-top: 15px;
+                            padding: 12px 20px;
+                            border-radius: 6px;
+                            font-size: 0.9rem;
+                            animation: slideIn 0.3s ease;
+                        }
+                        
+                        .download-status-info {
+                            background-color: #e3f2fd;
+                            color: #1976d2;
+                            border: 1px solid #bbdefb;
+                        }
+                        
+                        .download-status-success {
+                            background-color: #e8f5e8;
+                            color: #2e7d32;
+                            border: 1px solid #c8e6c9;
+                        }
+                        
+                        .download-status-error {
+                            background-color: #ffebee;
+                            color: #c62828;
+                            border: 1px solid #ffcdd2;
+                        }
+                        
+                        .status-content {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                        }
+                        
+                        .status-content i {
+                            font-size: 1.1rem;
+                        }
+                        
+                        @keyframes slideIn {
+                            from {
+                                opacity: 0;
+                                transform: translateY(-10px);
+                            }
+                            to {
+                                opacity: 1;
+                                transform: translateY(0);
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+            
+            /**
+             * 清除下载状态
+             */
+            function clearDownloadStatus() {
+                const existingStatus = document.getElementById('download-status');
+                if (existingStatus) {
+                    existingStatus.remove();
+                }
+            }
+        });
+    </script>
 
     <footer>
         <div class="container">
