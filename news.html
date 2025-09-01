@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻动态 - 人工智能与算力技术实验室</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/news-modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 覆盖lab-intro.css中冲突的样式 */
+        .sub-dropdown {
+            position: relative !important;
+            left: auto !important;
+            top: auto !important;
+            background-color: transparent !important;
+            min-width: auto !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            z-index: auto !important;
+            padding: 0 !important;
+        }
+        
+        .submenu {
+            position: absolute;
+            top: -12px;
+            left: calc(100% - 10px);
+            background: #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            width: 280px;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 102;
+            transition: visibility 0s linear 0.25s, opacity 0.3s ease, transform 0.3s ease;
+            transform: translateX(-5px);
+            pointer-events: none;
+        }
+        
+        .sub-dropdown:hover .submenu {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(0);
+            transition-delay: 0s;
+            pointer-events: auto;
+        }
+        .news-date { color: #222; font-weight: bold; margin-right: 10px; }
+        .news-content a { color: #1976d2; text-decoration: none; }
+        .news-content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="lab-name">
+                    <a href="index.html" style="text-decoration: none; color: inherit;">
+                        <h1>人工智能与算力技术实验室</h1>
+                        <h2>AI Lab</h2>
+                    </a>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="lab-intro.html" class="nav-link">认识实验室</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">科研平台</a>
+                        <div class="dropdown-content">
+                            <div class="sub-dropdown">
+                                <a href="#" class="has-submenu">重点实验室</a>
+                                <div class="submenu">
+                                <a href="key-lab-culture.html">文旅重点实验室</a>
+                                <a href="key-lab-ai.html">人工智能与算力技术重点实验室</a>
+                                </div>
+                            </div>
+                            <a href="committee.html">标委会</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">教师队伍</a>
+                        <div class="dropdown-content">
+                            <a href="people.html">研究队伍</a>
+                            <a href="academic-committee.html">学术委员会</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">人才培养</a>
+                        <div class="dropdown-content">
+                            <a href="society.html">社团</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">科学研究</a>
+                        <div class="dropdown-content">
+                            <a href="comprehensive-research.html">综合研究</a>
+                            <a href="special-research.html">专项研究</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">招生就业</a>
+                        <div class="dropdown-content">
+                            <a href="pages/enrollment/master.html">硕士招生</a>
+                            <a href="pages/enrollment/phd.html">博士招生</a>
+                            <a href="pages/enrollment/postdoc.html">博士后招生</a>
+                        </div>
+                    </li>
+                    <li><a href="cooperation.html" class="nav-link">合作交流</a></li>
+                    <li><a href="activities.html" class="nav-link">对外服务</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="page-title">
+                <h1>新闻动态</h1>
+                <div class="news-controls">
+                    <button onclick="newsManager.loadNews()" class="refresh-btn" title="刷新新闻">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="news-wrapper">
+                <div class="news-list">
+                    <div class="news-item">
+                        <div class="news-content flex-row">
+                            <span class="news-date">2023.7.12</span>
+                            <a href="https://www.srdice.net/?m=home&c=View&a=index&aid=3259" target="_blank">着力推动文旅产业数字化建设加快发展</a>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-content flex-row">
+                            <span class="news-date">2023.6.27</span>
+                            <a href="https://www.thepaper.cn/newsDetail_forward_23635925" target="_blank">“缘起丝路”敦煌烽燧河古道徒步活动在香港启动</a>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-content flex-row">
+                            <span class="news-date">2021.8.3</span>
+                            <a href="https://www.thepaper.cn/newsDetail_forward_19546531" target="_blank">第三届文化科技国际学术会议(ICCST 2022)在兰州大学开幕</a>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-content flex-row">
+                            <span class="news-date">2021.8.2</span>
+                            <a href="https://www.ctnews.com.cn/paper/content/202108/02/content_58798.html" target="_blank">旅游信息融合处理与数据权属保护文化和旅游部重点实验室揭牌成立</a>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-content flex-row">
+                            <span class="news-date">2021.6.9</span>
+                            <a href="https://news.qq.com/rain/a/20210609A0AF2900" target="_blank">喜讯！兰州大学获批文化和旅游部重点实验室</a>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-content flex-row">
+                            <span class="news-date">2022.12.27</span>
+                            <a href="https://www.sohu.com/a/621733102_121119246" target="_blank">甘肃省智慧旅游十四五规划及建设重点</a>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-content flex-row">
+                            <span class="news-date">2025.5.27</span>
+                            <a href="https://www.thepaper.cn/newsDetail_forward_30915978" target="_blank">5万P算力+9亿条数据=？——专访信息科学与工程学院杨裔教授</a>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-content flex-row">
+                            <span class="news-date">2024.11.28</span>
+                            <a href="https://www.gswbj.gov.cn/a/2024/11/28/23360.html" target="_blank">甘肃省文旅厅直系统冬春季文化和旅游惠民主题活动</a>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-content flex-row">
+                            <span class="news-date">2025.1.21</span>
+                            <a href="https://www.gswbj.gov.cn/a/2025/01/21/23977.html" target="_blank">出新、出彩、出圈 甘肃文旅晒出2024亮眼“成绩单”</a>
+                        </div>
+                    </div>
+</div>
+                <!-- 新闻内容将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .page-content {
+            padding: 40px 0;
+        }
+        
+        .page-title {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+            background-color: var(--primary-color);
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-title h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .news-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .refresh-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        
+        .refresh-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .refresh-btn i {
+            margin-right: 5px;
+        }
+        
+        .news-wrapper {
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 20px;
+            min-height: 500px;
+        }
+        
+        .news-list-full {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .news-item-full {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease;
+        }
+        
+        .news-item-full:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .news-item-full:last-child {
+            border-bottom: none;
+        }
+        
+        .news-content-full {
+            flex: 1;
+        }
+        
+        .news-content-full h3 {
+            font-size: 1.1rem;
+            margin: 0 0 8px 0;
+            color: #333;
+        }
+        
+        .news-date-full {
+            flex: 0 0 120px;
+            text-align: right;
+            color: #888;
+            font-size: 0.95rem;
+        }
+        
+        .news-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .news-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+        
+        .news-placeholder {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .news-item-full {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .news-date-full {
+                flex: 0;
+                text-align: left;
+                margin-top: 8px;
+            }
+            
+            .page-title {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .news-controls {
+                justify-content: center;
+            }
+        }
+    </style>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="lab-name-footer">
+                        <h3>人工智能与算力技术实验室</h3>
+                        <p>AI Lab</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>导航</h4>
+                        <ul>
+                            <li><a href="index.html">首页</a></li>
+                            <li><a href="lab-intro.html">实验室介绍</a></li>
+                            <li><a href="people.html">团队成员</a></li>
+                            <li><a href="projects.html">研究项目</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h4>资源</h4>
+                        <ul>
+                            <li><a href="#">学术资源</a></li>
+                            <li><a href="#">开源代码</a></li>
+                            <li><a href="#">数据集</a></li>
+                            <li><a href="#">教程</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h4>关注我们</h4>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-weixin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 人工智能与算力技术实验室. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 注释掉所有 JS 脚本引入，确保静态内容显示 -->
+    <!-- <script src="js/main.js"></script> -->
+    <!-- <script src="js/config.js"></script> -->
+    <!-- <script src="js/news-api.js"></script> -->
+</body>
+</html> 
